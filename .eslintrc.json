@@ -54,7 +54,8 @@
       "@typescript-eslint/no-namespace": "off",
       "no-underscore-dangle": "off",
       "max-classes-per-file": "off",
-      "dot-notation": "off"
+      "dot-notation": "off",
+      "import/no-extraneous-dependencies": "off"
     },
     "settings": {
       "import/resolver": {

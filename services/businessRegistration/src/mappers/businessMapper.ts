@@ -1,7 +1,7 @@
 import { AllOptional, UniqueEntityID } from '@microsservices-example/shared';
-import Business from 'domain/business';
-import BusinessDTO from 'dtos/business';
-import IBusiness from 'infra/database/entities/business/business';
+import Business from '@domain/business';
+import BusinessDTO from '../dtos/business';
+import IBusiness from '../infra/database/entities/business/business';
 
 export default class BusinessMapper {
     public static toDomain(business: IBusiness): Business {

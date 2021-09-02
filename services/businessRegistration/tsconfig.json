@@ -17,8 +17,15 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "removeComments": true,
-        "baseUrl": "./src",
         "noEmitOnError": true,
+        "baseUrl": "./src",
+        "paths": {
+            "@domain/*": ["./domain/*"],
+            "@repositories/*": ["./repositories/*"],
+            "@infra/*": ["./infra/*"],
+            "@mappers/*": ["./mappers/*"],
+            "@useCases/*": ["./useCases/*"],
+        }
     },
     "include": [
         "src/*.ts",
