@@ -5,3 +5,5 @@ export * from './BaseController';
 export * from './RollbackTransaction';
 
 export * from './BaseRepositoryMethods';
+
+export * from './QueueDispatcher';

@@ -13,6 +13,7 @@ module.exports = {
     logging: false,
     entities: [rootDir + '/infra/database/TypeORM/entities/**/*.**'],
     migrations: [rootDir + '/infra/database/TypeORM/migrations/*.**'],
+    subscribers: [rootDir + '/infra/database/TypeORM/subscribers/**/*.**'],
     migrationsRun: true,
     cli: {
         migrationsDir: rootDir + '/infra/database/TypeORM/migrations',

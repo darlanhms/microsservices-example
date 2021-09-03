@@ -8,6 +8,7 @@ import {
     right,
     UniqueEntityID,
 } from '@microsservices-example/shared';
+import BusinessCreated from './events/businessCreated';
 
 interface IBusinessProps {
     name: string;
@@ -52,6 +53,12 @@ export default class Business extends AggregateRoot<IBusinessProps> {
             return left(new GenericErrors.InvalidParam(guardedProps.message));
         }
 
-        return right(new Business(props, id));
+        const business = new Business(props, id);
+
+        if (!!id === false) {
+            business.addDomainEvent(new BusinessCreated(business));
+        }
+
+        return right(business);
     }
 }

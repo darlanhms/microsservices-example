@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-prototype-builtins */
-import IDomainEvent from './IDomainEvent';
+import { IDomainEvent } from './IDomainEvent';
 import { AggregateRoot } from '../AggregateRoot';
 import { UniqueEntityID } from '../UniqueEntityID';
 
-export default class DomainEvents {
+export class DomainEvents {
     private static handlersMap: Record<string, Array<(event: IDomainEvent) => void>> = {};
 
     private static markedAggregates: AggregateRoot<any>[] = [];
@@ -60,7 +60,10 @@ export default class DomainEvents {
         }
     }
 
-    public static register(callback: (event: IDomainEvent) => void, eventClassName: string): void {
+    public static register(
+        callback: (event: IDomainEvent) => void | Promise<void>,
+        eventClassName: string,
+    ): void {
         if (!this.handlersMap.hasOwnProperty(eventClassName)) {
             this.handlersMap[eventClassName] = [];
         }

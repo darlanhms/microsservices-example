@@ -1,3 +1,5 @@
+export * from './events';
+
 export * from './AggregateRoot';
 
 export * from './Entity';

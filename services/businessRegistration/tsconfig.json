@@ -25,6 +25,7 @@
             "@infra/*": ["./infra/*"],
             "@mappers/*": ["./mappers/*"],
             "@useCases/*": ["./useCases/*"],
+            "@subscriptions/*": ["./subscriptions/*"],
         }
     },
     "include": [
