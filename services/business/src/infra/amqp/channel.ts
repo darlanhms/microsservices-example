@@ -34,7 +34,9 @@ class ChannelHandler {
             throw new Error('Channel is not open for send queue');
         }
 
-        await this.channel.assertQueue(queue);
+        await this.channel.assertQueue(queue, {
+            durable: false,
+        });
 
         return this.channel.sendToQueue(queue, this.sanitizePayload(payload));
     }
