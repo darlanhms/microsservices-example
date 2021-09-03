@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+    business-db:
+        container_name: business-db
+        image: postgres:latest
+        restart: unless-stopped
+        ports:
+            - 5434:5432
+        environment:
+            POSTGRES_PASSWORD: 'postgres'

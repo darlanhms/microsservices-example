@@ -2,13 +2,30 @@ import { Channel, connect } from 'amqplib';
 
 type PayloadType = Buffer | Record<string | number | symbol, any> | string | number;
 
+interface QueueCallback {
+    (payload: Buffer | null): void | Promise<void>;
+}
+
+interface UnconsumedQueues {
+    queue: string;
+    callback: QueueCallback;
+}
+
 class ChannelHandler {
     private channel: Channel | undefined;
+
+    private toBeConsumedQueues: Array<UnconsumedQueues> = [];
 
     public async connect() {
         const conn = await connect(`amqp://${process.env.AMQP_HOST || 'localhost'}`);
 
         this.channel = await conn.createChannel();
+
+        if (this.toBeConsumedQueues.length) {
+            this.toBeConsumedQueues.forEach(({ queue, callback }) => {
+                this.consume(queue, callback);
+            });
+        }
 
         console.log('connected to amqp channel');
     }
@@ -35,10 +52,40 @@ class ChannelHandler {
         }
 
         await this.channel.assertQueue(queue, {
-            durable: true,
+            durable: false,
         });
 
         return this.channel.sendToQueue(queue, this.sanitizePayload(payload));
+    }
+
+    private async _consume(queue: string, callback: QueueCallback): Promise<void> {
+        if (!this.channel) {
+            throw new Error('[Channel Logic Error] Private consume called without an open channel');
+        }
+
+        await this.channel.assertQueue(queue, {
+            durable: true,
+        });
+
+        this.channel.consume(queue, msg => {
+            if (!msg) {
+                callback(null);
+                return;
+            }
+
+            this.channel?.ack(msg);
+
+            callback(msg.content);
+        });
+    }
+
+    public async consume(queue: string, callback: QueueCallback): Promise<void> {
+        if (!this.channel) {
+            this.toBeConsumedQueues.push({ queue, callback });
+            return;
+        }
+
+        this._consume(queue, callback);
     }
 }
 

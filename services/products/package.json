@@ -1,0 +1,21 @@
+{
+    "name": "products",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "dev": "ts-node-dev -r tsconfig-paths/register -r dotenv/config --respawn --transpile-only --ignore-watch node_modules --no-notify src/www.ts",
+        "up:db": "docker compose -f docker-compose.db.yml up -d",
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@microsservices-example/shared": "*",
+        "pg": "^8.7.1",
+        "reflect-metadata": "^0.1.13",
+        "typeorm": "^0.2.37",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "@types/uuid": "^8.3.1"
+    }
+}
