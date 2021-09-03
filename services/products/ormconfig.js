@@ -4,10 +4,10 @@ const rootDir = isProd ? 'dist' : 'src'
 module.exports = {
     type: 'postgres',
     host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 5433,
+    port: process.env.DB_PORT || 5434,
     username: 'postgres',
     password: 'postgres',
-    database: 'business_db',
+    database: 'product_db',
     synchronize: false,
     dropSchema: false,
     logging: false,
