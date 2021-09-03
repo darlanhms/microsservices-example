@@ -24,7 +24,7 @@
         "src/*.ts",
         "src/**/*.ts",
         "src/**/*.js"
-, "../businessRegistration/src/infra/database/TypeORM/helpers/Transaction.ts"    ],
+    ],
     "exclude": [
         "node_modules"
     ]

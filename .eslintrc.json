@@ -55,7 +55,8 @@
       "no-underscore-dangle": "off",
       "max-classes-per-file": "off",
       "dot-notation": "off",
-      "import/no-extraneous-dependencies": "off"
+      "import/no-extraneous-dependencies": "off",
+      "no-new": "off"
     },
     "settings": {
       "import/resolver": {
