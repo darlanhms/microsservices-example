@@ -63,11 +63,15 @@ class ChannelHandler {
             throw new Error('[Channel Logic Error] Private consume called without an open channel');
         }
 
-        await this.channel.assertQueue(queue, {
+        await this.channel.assertExchange(queue, 'fanout', {
             durable: true,
         });
 
-        this.channel.consume(queue, msg => {
+        const { queue: q } = await this.channel.assertQueue('', { exclusive: true });
+
+        await this.channel.bindQueue(q, queue, '');
+
+        this.channel.consume(q, msg => {
             if (!msg) {
                 callback(null);
                 return;
